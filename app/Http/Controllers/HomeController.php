@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['getUsers']);
     }
 
     /**
@@ -28,12 +28,11 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function createUser(){
-//        User::create([
-//           'name' => 'testUser',
-//            'email' => 'testUser@gmail.com',
-//            'password' => Hash::make('12345678'),
-//
-//        ]);
+
+    public function getUsers()
+    {
+        return response()->json(
+            User::get(['id','name','email','phone_number','date_of_birth'])
+        );
     }
 }

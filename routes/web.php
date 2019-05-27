@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/users','HomeController@getUsers');
+
 Auth::routes();
 
 Route::post('/registerServiceProvider','ServiceProviderController@create');
