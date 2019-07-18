@@ -44,7 +44,7 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        return \response()->json([
+        return response()->json([
            'id' => Auth::user()->id,
             'name' => Auth::user()->name,
             'email' => Auth::user()->email
@@ -54,7 +54,22 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
         return \response()->json([
-           'error '=> Lang::get('auth.failed'),
-        ], Response::HTTP_BAD_REQUEST);
+           //'error '=> Lang::get('auth.failed')
+            'response' => ['error' => 'email or password invalid']
+        ],Response::HTTP_BAD_REQUEST);
+
     }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        return response()->json([
+           'message' => 'Log out successfully'
+        ]);
+        // return $this->loggedOut($request) ?: redirect('/');
+    }
+
+
 }
